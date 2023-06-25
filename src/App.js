@@ -31,9 +31,13 @@ function App() {
     // do something with yearlyData ...
   };
 
+  const resetHandler = () => {};
   return (
     <LayoutWrapper logo={logo}>
-      <InvestmentForm />
+      <InvestmentForm
+        calculateHandler={calculateHandler}
+        resetHandler={resetHandler}
+      />
       {/* Todo: Show below table conditionally (only once result data is available) */}
       {/* Show fallback text if no data is available */}
       <InvestmentsTable />
