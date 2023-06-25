@@ -4,6 +4,7 @@ export const InvestmentsTable = (props) => {
   if (props.data.length === 0) {
     return null;
   }
+  const initialInvestment = props.initialInvestment;
   return (
     <table className="result">
       <thead>
@@ -23,8 +24,12 @@ export const InvestmentsTable = (props) => {
               <td>{el.year}</td>
               <td>{el.savingsEndOfYear}</td>
               <td>{el.yearlyInterest}</td>
-              <td>{el.totalInterest}</td>
-              <td>{el.totalInvestedCapital}</td>
+              <td>
+                {el.savingsEndOfYear -
+                  initialInvestment -
+                  el.yearlyContribution * el.year}
+              </td>
+              <td>{initialInvestment + el.yearlyContribution * el.year}</td>
             </tr>
           );
         })}

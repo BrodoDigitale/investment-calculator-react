@@ -6,7 +6,9 @@ import { LayoutWrapper } from "./components/Layout";
 
 function App() {
   const [data, setData] = useState([]);
+  const [initialInvestment, setInitialInvestment] = useState(0);
   const calculateHandler = (userInput) => {
+    setInitialInvestment(userInput.currentSavings);
     const yearlyData = [];
     let currentSavings = +userInput["current-savings"]; // feel free to change the shape of this input object!
     const yearlyContribution = +userInput["yearly-contribution"]; // as mentioned: feel free to change the shape...
@@ -22,9 +24,7 @@ function App() {
         year: i + 1,
         yearlyInterest: yearlyInterest,
         savingsEndOfYear: currentSavings,
-        //yearlyContribution: yearlyContribution,
-        totalInterest: yearlyInterest * (i + 1),
-        totalInvestedCapital: yearlyContribution * (i + 1),
+        yearlyContribution: yearlyContribution,
       });
     }
     setData([...yearlyData]);
@@ -35,7 +35,7 @@ function App() {
       <InvestmentForm calculateHandler={calculateHandler} />
       {/* Todo: Show below table conditionally (only once result data is available) */}
       {/* Show fallback text if no data is available */}
-      <InvestmentsTable data={data} />
+      <InvestmentsTable data={data} initialInvestment={initialInvestment} />
     </LayoutWrapper>
   );
 }
