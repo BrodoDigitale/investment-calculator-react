@@ -1,27 +1,31 @@
 import React, { useState } from "react";
 
 export const InvestmentForm = (props) => {
-  const [currentSavings, setCurrentSavings] = useState(0);
-  const [yearlyContribution, setYearlyContribution] = useState(0);
-  const [expectedReturn, setExpectedReturn] = useState(0);
-  const [duration, setDuration] = useState(0);
+  const initialState = {
+    "current-savings": 0,
+    "yearly-contribution": 0,
+    "expected-return": 0,
+    duration: 0,
+  };
+  const [userInput, setUserInput] = useState(initialState);
 
   const submitHandler = (evt) => {
     evt.preventDefault();
-    const userInput = Object.assign({
-      "current-savings": currentSavings,
-      "yearly-contribution": yearlyContribution,
-      "expected-return": expectedReturn,
-      duration: duration,
-    });
+    console.log(userInput);
     props.calculateHandler(userInput);
     resetHandler();
   };
   const resetHandler = () => {
-    setCurrentSavings(0);
-    setYearlyContribution(0);
-    setExpectedReturn(0);
-    setDuration(0);
+    setUserInput(initialState);
+  };
+
+  const onChangeInputHandler = (input, value) => {
+    setUserInput((prevState) => {
+      return {
+        ...prevState,
+        [input]: value,
+      };
+    });
   };
 
   return (
@@ -31,18 +35,22 @@ export const InvestmentForm = (props) => {
           <label htmlFor="current-savings">Current Savings ($)</label>
           <input
             type="number"
-            id="currentSavings"
-            value={currentSavings}
-            onChange={(evt) => setCurrentSavings(evt.target.value)}
+            id="current-savings"
+            value={userInput["current-savings"]}
+            onChange={(evt) =>
+              onChangeInputHandler("current-savings", evt.target.value)
+            }
           />
         </p>
         <p>
           <label htmlFor="yearly-contribution">Yearly Savings ($)</label>
           <input
             type="number"
-            id="yearlyContribution"
-            value={yearlyContribution}
-            onChange={(evt) => setYearlyContribution(evt.target.value)}
+            id="yearly-contribution"
+            value={userInput["yearly-contribution"]}
+            onChange={(evt) =>
+              onChangeInputHandler("yearly-contribution", evt.target.value)
+            }
           />
         </p>
       </div>
@@ -53,9 +61,11 @@ export const InvestmentForm = (props) => {
           </label>
           <input
             type="number"
-            id="expectedReturn"
-            value={expectedReturn}
-            onChange={(evt) => setExpectedReturn(evt.target.value)}
+            id="expected-return"
+            value={userInput["expected-return"]}
+            onChange={(evt) =>
+              onChangeInputHandler("expected-return", evt.target.value)
+            }
           />
         </p>
         <p>
@@ -63,8 +73,10 @@ export const InvestmentForm = (props) => {
           <input
             type="number"
             id="duration"
-            value={duration}
-            onChange={(evt) => setDuration(evt.target.value)}
+            value={userInput["duration"]}
+            onChange={(evt) =>
+              onChangeInputHandler("duration", evt.target.value)
+            }
           />
         </p>
       </div>
