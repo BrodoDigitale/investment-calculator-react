@@ -1,6 +1,9 @@
 import React from "react";
 
 export const InvestmentsTable = (props) => {
+  if (props.data.length === 0) {
+    return null;
+  }
   return (
     <table className="result">
       <thead>
@@ -13,13 +16,18 @@ export const InvestmentsTable = (props) => {
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>YEAR NUMBER</td>
-          <td>TOTAL SAVINGS END OF YEAR</td>
-          <td>INTEREST GAINED IN YEAR</td>
-          <td>TOTAL INTEREST GAINED</td>
-          <td>TOTAL INVESTED CAPITAL</td>
-        </tr>
+        {props.data.map((el, idx) => {
+          console.log(el);
+          return (
+            <tr key={idx}>
+              <td>{el.year}</td>
+              <td>{el.savingsEndOfYear}</td>
+              <td>{el.yearlyInterest}</td>
+              <td>{el.totalInterest}</td>
+              <td>{el.totalInvestedCapital}</td>
+            </tr>
+          );
+        })}
       </tbody>
     </table>
   );

@@ -6,18 +6,18 @@ export const InvestmentForm = (props) => {
   const [expectedReturn, setExpectedReturn] = useState(0);
   const [duration, setDuration] = useState(0);
 
-  const calculateHandler = (evt) => {
+  const submitHandler = (evt) => {
     evt.preventDefault();
     const userInput = Object.assign({
-      currentSavings: currentSavings,
-      yearlyContribution: yearlyContribution,
-      expectedReturn: expectedReturn,
+      "current-savings": currentSavings,
+      "yearly-contribution": yearlyContribution,
+      "expected-return": expectedReturn,
       duration: duration,
     });
-    console.log(userInput);
+    props.calculateHandler(userInput);
     resetHandler();
   };
-  const resetHandler = (evt) => {
+  const resetHandler = () => {
     setCurrentSavings(0);
     setYearlyContribution(0);
     setExpectedReturn(0);
@@ -25,7 +25,7 @@ export const InvestmentForm = (props) => {
   };
 
   return (
-    <form className="form">
+    <form className="form" onSubmit={submitHandler}>
       <div className="input-group">
         <p>
           <label htmlFor="current-savings">Current Savings ($)</label>
@@ -72,7 +72,7 @@ export const InvestmentForm = (props) => {
         <button type="reset" className="buttonAlt" onClick={resetHandler}>
           Reset
         </button>
-        <button type="submit" className="button" onClick={calculateHandler}>
+        <button type="submit" className="button">
           Calculate
         </button>
       </p>
