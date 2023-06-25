@@ -8,7 +8,7 @@ function App() {
   const [data, setData] = useState([]);
   const [initialInvestment, setInitialInvestment] = useState(0);
   const calculateHandler = (userInput) => {
-    setInitialInvestment(userInput.currentSavings);
+    setInitialInvestment(userInput["current-savings"]);
     const yearlyData = [];
     let currentSavings = +userInput["current-savings"]; // feel free to change the shape of this input object!
     const yearlyContribution = +userInput["yearly-contribution"]; // as mentioned: feel free to change the shape...
